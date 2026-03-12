@@ -1460,6 +1460,16 @@ img { max-width: 100%; display: block; }
 }
 
 /* ── RESPONSIVE ── */
+
+/* Prevent horizontal overflow on all devices */
+html, body { overflow-x: hidden; }
+
+/* On mobile, collapse horizontal reveals to vertical so they never overflow */
+@media (max-width: 768px) {
+  .reveal-left, .reveal-right { transform: translateY(36px); }
+  .reveal-left.is-visible, .reveal-right.is-visible { transform: none; }
+}
+
 @media (max-width: 1024px) {
   .process-steps { grid-template-columns: repeat(2,1fr); }
   .process-steps::before { display: none; }
@@ -1470,31 +1480,157 @@ img { max-width: 100%; display: block; }
 
 @media (max-width: 768px) {
   :root { --section-py: 64px; }
+
+  /* ── Navbar ── */
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
-  .hero { min-height: auto; padding: 80px 0 64px; }
-  .hero-title { font-size: 40px; }
-  .hero-desc { font-size: 16px; }
-  .hero-actions { justify-content: center; }
-  .hero-container { text-align: center; }
-  .hero-trust { margin: 0 auto; }
-  .why-grid { grid-template-columns: 1fr; }
-  .about-grid { grid-template-columns: 1fr; }
-  .mv-cards { grid-template-columns: 1fr; }
-  .values-grid { grid-template-columns: 1fr 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
+
+  /* ── Hero ── */
+  .hero { min-height: auto; padding: 80px 0 60px; }
+  .hero-container { padding: 0 20px; text-align: center; }
+  .hero-title { font-size: clamp(34px, 9vw, 48px); }
+  .hero-desc { font-size: 15px; margin-bottom: 28px; }
+  .hero-actions { justify-content: center; flex-direction: column; align-items: center; gap: 12px; }
+  .hero-actions .btn { width: 100%; max-width: 280px; justify-content: center; }
+  .hero-trust { margin: 0 auto; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 12px 14px; }
+  .hero-trust-label { width: 100%; text-align: center; }
+  .hero-eyebrow { font-size: 11px; text-align: center; justify-content: center; }
+
+  /* ── Logos strip ── */
+  .logos-strip { padding: 28px 16px; }
+  .logos-row { gap: 10px; }
+  .logo-chip { font-size: 13px; padding: 7px 14px; }
+
+  /* ── Section headers ── */
+  .section-header { margin-bottom: 48px; padding: 0 4px; }
+  .section-title { font-size: clamp(24px, 6vw, 36px); }
+  .section-sub { font-size: 15px; }
+
+  /* ── Service cards ── */
   .service-cards-grid { grid-template-columns: 1fr; }
+
+  /* ── Why section ── */
+  .why-grid { grid-template-columns: 1fr; gap: 40px; }
+  .stats-panel { padding: 28px 24px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-box { padding: 18px 14px; }
+  .stat-box-num { font-size: 26px; }
+
+  /* ── About ── */
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-stat-grid { grid-template-columns: 1fr 1fr; }
+
+  /* ── MV ── */
+  .mv-cards { grid-template-columns: 1fr; }
+  .mv-card { padding: 28px 24px; }
+
+  /* ── Values ── */
+  .values-grid { grid-template-columns: 1fr 1fr; }
+
+  /* ── Contact ── */
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-form-card { padding: 28px 20px; }
   .form-row { grid-template-columns: 1fr; }
+
+  /* ── Process ── */
   .process-steps { grid-template-columns: 1fr 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-  .cta-card { padding: 44px 28px; }
-  .contact-form-card { padding: 28px 24px; }
+
+  /* ── CTA ── */
+  .cta-card { padding: 44px 24px; }
+  .cta-actions { flex-direction: column; align-items: center; gap: 12px; }
+  .cta-actions .btn { width: 100%; max-width: 260px; justify-content: center; }
+
+  /* ── Page hero ── */
+  .page-hero { padding: 72px 20px 60px; }
+  .page-hero h1 { font-size: clamp(28px, 7vw, 42px); }
+  .page-hero p { font-size: 15px; }
+
+  /* ── Footer ── */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; padding: 0 20px 40px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; padding: 16px 20px; }
+  .footer-tagline { max-width: 100%; }
+
+  /* ── Map ── */
+  .map-placeholder { height: 280px; }
 }
 
 @media (max-width: 480px) {
+  /* ── Touch targets ── */
+  .btn { min-height: 46px; padding: 13px 22px; }
+  .btn-sm { min-height: 38px; }
+
+  /* ── Hero ── */
+  .hero { padding: 72px 0 52px; }
+  .hero-title { font-size: clamp(30px, 8.5vw, 40px); }
+  .hero-desc { font-size: 14.5px; }
+  .hero-trust { display: none; } /* too cramped on tiny phones */
+
+  /* ── Sections ── */
+  .container { padding: 0 16px; }
+  :root { --section-py: 52px; }
+
+  /* ── Values / Process ── */
   .values-grid { grid-template-columns: 1fr; }
   .process-steps { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
+
+  /* ── Why items ── */
+  .why-item { padding: 16px 14px; }
+
+  /* ── Footer ── */
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer { padding-top: 44px; }
+
+  /* ── Stats ── */
+  .stats-panel { padding: 22px 18px; }
+  .stat-box-num { font-size: 24px; }
+
+  /* ── Contact form ── */
+  .contact-form-card { padding: 24px 16px; }
+  .contact-detail-item { padding: 14px 16px; }
+
+  /* ── About visual ── */
+  .about-visual-card { padding: 28px 20px; }
+  .about-stat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* ── CTA ── */
+  .cta-card { padding: 36px 18px; border-radius: var(--r-xl); }
+  .cta-card h2 { font-size: clamp(22px, 6vw, 30px); }
+
+  /* ── Section header ── */
+  .section-header { margin-bottom: 36px; }
+
+  /* ── Logo chips ── */
+  .logos-row { gap: 8px; }
+  .logo-chip { font-size: 12px; padding: 6px 12px; }
+
+  /* ── Page hero ── */
+  .page-hero { padding: 60px 16px 48px; }
+}
+
+@media (max-width: 360px) {
+  .hero-title { font-size: 28px; }
+  .hero-actions .btn { max-width: 100%; }
+  .brand-name { font-size: 15px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat-box-num { font-size: 22px; }
+}
+
+/* ── iOS: prevent auto-zoom on input focus (needs font-size >= 16px) ── */
+@media (max-width: 768px) {
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 16px;
+  }
+}
+
+/* ── Safe area insets (iPhone notch/Dynamic Island) ── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .footer-bottom {
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+  }
+  .mobile-menu-inner {
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  }
 }
 

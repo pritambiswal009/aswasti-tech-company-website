@@ -1,15 +1,41 @@
 import { useState, useEffect } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled]     = useState(false)
+  const { pathname } = useLocation()
 
+  // Close mobile menu on route change
+  useEffect(() => { setMobileOpen(false) }, [pathname])
+
+  // Scroll-aware background
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Close on outside click / Escape key
+  useEffect(() => {
+    if (!mobileOpen) return
+    const handleKey = (e) => { if (e.key === 'Escape') setMobileOpen(false) }
+    const handleClick = (e) => {
+      if (!e.target.closest('.navbar')) setMobileOpen(false)
+    }
+    document.addEventListener('keydown', handleKey)
+    document.addEventListener('click', handleClick)
+    return () => {
+      document.removeEventListener('keydown', handleKey)
+      document.removeEventListener('click', handleClick)
+    }
+  }, [mobileOpen])
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
 
   const links = [
     { to: '/', label: 'Home' },
